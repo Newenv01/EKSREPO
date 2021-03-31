@@ -15,7 +15,7 @@ resource "aws_subnet" "new_sub" {
    vpc_id           = aws_vpc.new_vpc.id
 
    tags = map (
-     "Name", "terraform-eks-new-node",
+     "Name", "terraform-eks-new-node - ${count.index + 1}"",
      "kubernates.io/cluster/${var.cluster-name}", "shared",
    )
 }
@@ -24,7 +24,7 @@ resource "aws_internet_gateway" "new_gw" {
    vpc_id = aws_vpc.new_vpc.id
 
    tags = {
-     Name = "terraform-eks-gw"
+     Name = "terraform-eks-internet-gw"
    }
 }
 
@@ -36,4 +36,3 @@ resource "aws_route_table" "new_rte" {
      gateway_id = aws_internet_gateway.new_gw.id
    }
 }
-
